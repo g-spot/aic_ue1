@@ -4,5 +4,6 @@ import at.ac.tuwien.infosys.aic11.data.Customer;
 
 public interface CustomerInterface {
 
-	public Customer addCustomer( Customer c );
+	public void addCustomer( Customer c );
+	public Customer getCustomer(long id);
 }

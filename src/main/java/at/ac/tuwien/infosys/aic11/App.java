@@ -1,11 +1,18 @@
 package at.ac.tuwien.infosys.aic11;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.soap.SOAPBinding;
 
+import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
+import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 import at.ac.tuwien.infosys.aic11.data.Customer;
@@ -38,6 +45,23 @@ public class App
     	
     	Customer c = cr.addCustomer(null);
     	System.out.println(c.getFirstname());
+    	
+    	// Sent HTTP GET request to query customer info
+        System.out.println("Send HTTP GET request to query customer info");
+        URL url = new URL("http://localhost:9001/ratingservice/rating/1234");
+        System.out.println("hm?");
+        InputStream in = url.openStream();
+        System.out.println("nothin");
+        System.out.println(getStringFromInputStream(in));
+    	
     	Thread.sleep(10000);
+    }
+    
+    private static String getStringFromInputStream(InputStream in) throws Exception {
+        CachedOutputStream bos = new CachedOutputStream();
+        IOUtils.copy(in, bos);
+        in.close();
+        bos.close();
+        return bos.getOut().toString();
     }
 }

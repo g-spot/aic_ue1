@@ -1,5 +1,8 @@
 package at.ac.tuwien.infosys.aic11.data;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Rating")
 public class Rating {
 	
 	private CustomerRating customerrating;

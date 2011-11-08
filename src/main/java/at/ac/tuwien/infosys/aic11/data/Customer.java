@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement (name="Customer")
 public class Customer {
 
 	protected long customerid;
@@ -12,9 +15,9 @@ public class Customer {
 	protected String lastname;
 	protected BigDecimal openbalance;
 	
-	protected Address address;
-	//protected DisbursementPreference disbursementrating;
-	protected List<CreditRequest> creditrequests = new ArrayList<CreditRequest>();
+	//protected Address address;
+	//protected DisbursementPreference disbursementpreference;
+	//protected List<CreditRequest> creditrequests = new ArrayList<CreditRequest>();
 	//protected Rating rating;
 	
 	public long getCustomerid() {
@@ -47,19 +50,19 @@ public class Customer {
 	public void setOpenbalance(BigDecimal openbalance) {
 		this.openbalance = openbalance;
 	}
-	public Address getAddress() {
+	/*public Address getAddress() {
 		return address;
 	}
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-	/*public DisbursementPreference getDisbursementrating() {
+	}*/
+	/*public DisbursementPreference getDisbursementpreference() {
 		return disbursementrating;
 	}
-	public void setDisbursementrating(DisbursementPreference disbursementrating) {
-		this.disbursementrating = disbursementrating;
+	public void setDisbursementrating(DisbursementPreference disbursementpreference) {
+		this.disbursementrating = disbursementpreference;
 	}*/
-	public List<CreditRequest> getCreditrequests() {
+	/*public List<CreditRequest> getCreditrequests() {
 		return creditrequests;
 	}
 	public void setCreditrequests(List<CreditRequest> creditrequests) {
@@ -67,7 +70,7 @@ public class Customer {
 	}
 	public void addCreditrequest( CreditRequest c ) {
 		this.creditrequests.add( c );
-	}
+	}*/
 	public Rating getRating() {
 		//return rating;
 		return null;
