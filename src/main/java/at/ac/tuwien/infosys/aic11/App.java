@@ -48,7 +48,9 @@ public class App
     	
     	// Sent HTTP GET request to query customer info
         System.out.println("Send HTTP GET request to query customer info");
-        URL url = new URL("http://localhost:9001/ratingservice/rating/1234");
+        
+        // get rating of customer with id 202
+        URL url = new URL("http://localhost:9001/ratingservice/rating/202");
         System.out.println("hm?");
         InputStream in = url.openStream();
         System.out.println("nothin");

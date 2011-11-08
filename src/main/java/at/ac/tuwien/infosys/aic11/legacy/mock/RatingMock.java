@@ -22,8 +22,10 @@ public class RatingMock implements RatingInterface {
 		Rating result = new Rating(c);
 		if(c.getLastname().equals("Bankrupt"))
 			result.setCustomerrating(CustomerRating.AMinus);
-		else
+		else if(c.getLastname().equals("Reliable"))
 			result.setCustomerrating(CustomerRating.AAA);
+		else
+			result.setCustomerrating(CustomerRating.A);
 		return result;
 	}
 	

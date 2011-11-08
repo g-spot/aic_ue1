@@ -4,22 +4,25 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement (name="Customer")
+@XmlRootElement (name="customer")
 public class Customer {
 
-	protected long customerid;
+    protected long customerid;
 	protected String firstname;
 	protected String middlename;
 	protected String lastname;
 	protected BigDecimal openbalance;
 	
-	//protected Address address;
+	//@XmlElement   protected Address address;
 	//protected DisbursementPreference disbursementpreference;
 	//protected List<CreditRequest> creditrequests = new ArrayList<CreditRequest>();
 	//protected Rating rating;
 	
+	@XmlAttribute
 	public long getCustomerid() {
 		return customerid;
 	}

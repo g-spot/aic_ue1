@@ -31,7 +31,10 @@ public class RatingServiceImpl implements RatingService {
 		logger.info("Invoking getRating(id = " + id + ")");
 		Customer customer = ci.getCustomer(Long.parseLong(id));
 		if(customer == null)
+		{
 			logger.info("CUSTOMER IS NULL");
+			return null;
+		}
 		else
 			logger.info("CUSTOMER FOUND: " + customer.getLastname());
 		Rating rating = ri.getRating(customer);
