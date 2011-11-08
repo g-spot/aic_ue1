@@ -28,20 +28,15 @@ public class App
     {
     	QName service_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementService");
     	QName port_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementServicePort");
-    	//Service service = Service.create(service_name);
     	String address = "http://localhost:9000/CRService";
-    	/*service.addPort(port_name, SOAPBinding.SOAP11HTTP_BINDING, address);
-    	
-    	CustomerRelationsManagementService cr = service.getPort(CustomerRelationsManagementService.class);
-    	*/
-    	 JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-         factory.getInInterceptors().add(new LoggingInInterceptor());
-         factory.getOutInterceptors().add(new LoggingOutInterceptor());
-         factory.setServiceClass(CustomerRelationsManagementService.class);
-         factory.setAddress(address);
-         //HelloWorld hw = (HelloWorld)factory.create();
-         //hw.sayHiToUser();
-         CustomerRelationsManagementService cr = (CustomerRelationsManagementService)factory.create();
+
+    	JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+    	factory.getInInterceptors().add(new LoggingInInterceptor());
+    	factory.getOutInterceptors().add(new LoggingOutInterceptor());
+    	factory.setServiceClass(CustomerRelationsManagementService.class);
+    	factory.setAddress(address);
+
+        CustomerRelationsManagementService cr = (CustomerRelationsManagementService)factory.create();
     	
     	Customer c = new Customer();
     	c.setCustomerid(110);
@@ -54,12 +49,10 @@ public class App
         
         // get rating of customer with id 202
         URL url = new URL("http://localhost:9001/ratingservice/rating/110");
-        System.out.println("hm?");
         InputStream in = url.openStream();
-        System.out.println("nothin");
         System.out.println(getStringFromInputStream(in));
     	
-    	Thread.sleep(10000);
+    	//Thread.sleep(10000);
     }
     
     private static String getStringFromInputStream(InputStream in) throws Exception {

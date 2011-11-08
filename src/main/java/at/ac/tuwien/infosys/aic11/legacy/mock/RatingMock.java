@@ -31,7 +31,10 @@ public class RatingMock implements RatingInterface {
 	}*/
 	
 	public Rating getRating(Customer c) {
-		//TODO add kind of logic for ratings
+		// ratings are defined by the last name of the customer/warrantor:
+		// * is the last name "Bankrupt", Rating AMinus is returned
+		// * is the last name "Reliable", Rating AAA is returned
+		// * otherwise Rating A is returned
 		Rating result = new Rating(c);
 		if(c.getLastname().equals("Bankrupt"))
 			result.setCustomerrating(CustomerRating.AMinus);
