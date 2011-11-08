@@ -8,6 +8,19 @@ import at.ac.tuwien.infosys.aic11.data.Warrantor;
 import at.ac.tuwien.infosys.aic11.legacy.RatingInterface;
 
 public class RatingMock implements RatingInterface {
+	
+    private static RatingMock instance;
+
+    private RatingMock() {}
+
+    public synchronized static RatingMock getInstance() 
+    {
+        if (instance == null) 
+        {
+            instance = new RatingMock();
+        }
+        return instance;
+    }
 
 	/*public Rating getCustomerRating(CreditRequest cr) {
 		//what to do with the ratings...

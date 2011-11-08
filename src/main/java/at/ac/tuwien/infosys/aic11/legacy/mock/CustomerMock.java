@@ -3,6 +3,7 @@ package at.ac.tuwien.infosys.aic11.legacy.mock;
 import java.util.HashMap;
 import java.util.Map;
 
+import at.ac.tuwien.infosys.aic11.data.Address;
 import at.ac.tuwien.infosys.aic11.data.Customer;
 import at.ac.tuwien.infosys.aic11.data.Warrantor;
 import at.ac.tuwien.infosys.aic11.legacy.CustomerInterface;
@@ -11,10 +12,20 @@ public class CustomerMock implements CustomerInterface {
 	
 	private Map<Long, Customer> customers;
 	
-	public CustomerMock() {
-		//TODO Mock data
-		fillCustomers();
-	}
+	private static CustomerMock instance;
+
+    private CustomerMock() {
+    	fillCustomers();
+    }
+
+    public synchronized static CustomerMock getInstance() 
+    {
+        if (instance == null) 
+        {
+            instance = new CustomerMock();
+        }
+        return instance;
+    }
 
 	public void addCustomer(Customer c) {
 		customers.put(c.getCustomerid(), c);
@@ -26,14 +37,14 @@ public class CustomerMock implements CustomerInterface {
 	
 	private void fillCustomers() {
 		Object[][] mockCustomers = {
-			{(long)101, "Frank", "Bankrupt"},
-			{(long)102, "Joe", "Reliable"},
-			{(long)103, "Steve", "Normal"}
+			{(long)101, "Frank", "Bankrupt", (long)301, "Resselpark", "Vienna", "50", "7a", "1040"},
+			{(long)102, "Joe", "Reliable", (long)302, "Resselpark", "Vienna", "50", "7a", "1040"},
+			{(long)103, "Steve", "Normal", (long)303, "Resselpark", "Vienna", "50", "7a", "1040"}
 		};
 		Object[][] mockWarrantors = {
-				{(long)201, "David", "Normal"},
-				{(long)202, "John", "Bankrupt"},
-				{(long)203, "George", "Reliable"}
+				{(long)201, "David", "Normal", (long)304, "Resselpark", "Vienna", "50", "7a", "1040"},
+				{(long)202, "John", "Bankrupt", (long)305, "Resselpark", "Vienna", "50", "7a", "1040"},
+				{(long)203, "George", "Reliable", (long)306, "Resselpark", "Vienna", "50", "7a", "1040"}
 			};
 		
 		customers = new HashMap<Long, Customer>();
@@ -49,6 +60,14 @@ public class CustomerMock implements CustomerInterface {
 			w.setCustomerid((Long)mockWarrantors[i][0]);
 			w.setFirstname((String)mockWarrantors[i][1]);
 			w.setLastname((String)mockWarrantors[i][2]);
+			Address a = new Address();
+			a.setId((Long)mockWarrantors[i][3]);
+			a.setStreet((String)mockWarrantors[i][4]);
+			a.setCity((String)mockWarrantors[i][5]);
+			a.setHouse((String)mockWarrantors[i][6]);
+			a.setDoor((String)mockWarrantors[i][7]);
+			a.setZipcode((String)mockWarrantors[i][8]);
+			w.setAddress(a);
 			customers.put((Long)mockWarrantors[i][0], w);
 		}
 	}

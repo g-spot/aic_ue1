@@ -19,8 +19,8 @@ public class RatingServiceImpl implements RatingService {
 	public RatingServiceImpl()
 	{
 		logger = Logger.getLogger("at.ac.tuwien.infosys.aic11.services.RatingServiceImpl");
-		ri = new RatingMock();
-		ci = new CustomerMock();
+		ri = RatingMock.getInstance();
+		ci = CustomerMock.getInstance();
 	}
 	
 	/*public Rating getRating(CreditRequest cr) {

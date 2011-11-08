@@ -1,6 +1,7 @@
 package at.ac.tuwien.infosys.aic11.data;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "Rating")
 public class Rating {
@@ -24,6 +25,7 @@ public class Rating {
 		this.customerrating = customerrating;
 	}
 
+	@XmlTransient // prevents the mapping of the property to xml representation
 	public Customer getCustomer() {
 		return customer;
 	}

@@ -12,5 +12,5 @@ import at.ac.tuwien.infosys.aic11.data.Customer;
 public interface CustomerRelationsManagementService {
 	
 	@WebMethod
-	public Customer addCustomer(@WebParam(name="customer")Customer c );
+	public void addCustomer(@WebParam(name="customer")Customer c );
 }

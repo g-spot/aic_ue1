@@ -17,10 +17,10 @@ public class Customer {
 	protected String lastname;
 	protected BigDecimal openbalance;
 	
-	//@XmlElement   protected Address address;
-	//protected DisbursementPreference disbursementpreference;
-	//protected List<CreditRequest> creditrequests = new ArrayList<CreditRequest>();
-	//protected Rating rating;
+	protected Address address;
+	protected DisbursementPreference disbursementpreference;
+	protected List<CreditRequest> creditrequests = new ArrayList<CreditRequest>();
+	protected Rating rating;
 	
 	@XmlAttribute
 	public long getCustomerid() {
@@ -53,19 +53,19 @@ public class Customer {
 	public void setOpenbalance(BigDecimal openbalance) {
 		this.openbalance = openbalance;
 	}
-	/*public Address getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 	public void setAddress(Address address) {
 		this.address = address;
-	}*/
-	/*public DisbursementPreference getDisbursementpreference() {
-		return disbursementrating;
+	}
+	public DisbursementPreference getDisbursementpreference() {
+		return disbursementpreference;
 	}
 	public void setDisbursementrating(DisbursementPreference disbursementpreference) {
-		this.disbursementrating = disbursementpreference;
-	}*/
-	/*public List<CreditRequest> getCreditrequests() {
+		this.disbursementpreference = disbursementpreference;
+	}
+	public List<CreditRequest> getCreditrequests() {
 		return creditrequests;
 	}
 	public void setCreditrequests(List<CreditRequest> creditrequests) {
@@ -73,12 +73,11 @@ public class Customer {
 	}
 	public void addCreditrequest( CreditRequest c ) {
 		this.creditrequests.add( c );
-	}*/
+	}
 	public Rating getRating() {
-		//return rating;
-		return null;
+		return rating;
 	}
 	public void setRating(Rating rating) {
-		//this.rating = rating;
+		this.rating = rating;
 	}
 }

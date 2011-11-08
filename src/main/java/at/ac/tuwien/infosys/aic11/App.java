@@ -43,14 +43,17 @@ public class App
          //hw.sayHiToUser();
          CustomerRelationsManagementService cr = (CustomerRelationsManagementService)factory.create();
     	
-    	Customer c = cr.addCustomer(null);
-    	System.out.println(c.getFirstname());
+    	Customer c = new Customer();
+    	c.setCustomerid(110);
+    	c.setFirstname("Gerhard");
+    	c.setLastname("Reliable");
+    	cr.addCustomer(c);
     	
     	// Sent HTTP GET request to query customer info
         System.out.println("Send HTTP GET request to query customer info");
         
         // get rating of customer with id 202
-        URL url = new URL("http://localhost:9001/ratingservice/rating/202");
+        URL url = new URL("http://localhost:9001/ratingservice/rating/110");
         System.out.println("hm?");
         InputStream in = url.openStream();
         System.out.println("nothin");

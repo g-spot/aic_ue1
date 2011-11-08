@@ -1,5 +1,9 @@
 package at.ac.tuwien.infosys.aic11.data;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement (name = "address")
 public class Address {
 	
 	private long id; //due to the paper, it should be string, but i think this is a typo
@@ -9,6 +13,7 @@ public class Address {
 	private String door;
 	private String zipcode;
 	
+	@XmlAttribute
 	public long getId() {
 		return id;
 	}
