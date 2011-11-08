@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javax.xml.ws.Endpoint;
 
+import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 
@@ -31,9 +32,28 @@ public class Server {
 	
 	private void startCRService() throws Exception {
 		logger.info("Starting CustomerRelationsManagementService...");
+		
+		// WORKS
 		CustomerRelationsManagementServiceImpl crManagerImpl = new CustomerRelationsManagementServiceImpl();
 		String address = "http://localhost:9000/CRService";
 		Endpoint.publish(address, crManagerImpl);
+		
+		// DOES NOT WORK
+		/*JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
+		sf.setResourceClasses(CustomerRelationsManagementService.class);
+		sf.setResourceProvider(CustomerRelationsManagementService.class,
+								new SingletonResourceProvider(new CustomerRelationsManagementServiceImpl()));
+		sf.setAddress("http://localhost:9000/CRService/");
+		
+		sf.create();*/
+		
+		// DOES NOT WORK
+		/*ServerFactoryBean svrFactory = new ServerFactoryBean();
+		svrFactory.setServiceClass(CustomerRelationsManagementService.class);
+		svrFactory.setAddress("http://localhost:9000/CRService/");
+		svrFactory.setServiceBean(new CustomerRelationsManagementServiceImpl());
+		svrFactory.create();*/
+		
 		logger.info("CustomerRelationsManagementService running");
 	}
 	

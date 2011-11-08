@@ -41,7 +41,7 @@ public class App
     	Customer c = new Customer();
     	c.setCustomerid(110);
     	c.setFirstname("Gerhard");
-    	c.setLastname("Reliable");
+    	c.setLastname("Bankrupt");
     	cr.addCustomer(c);
     	
     	// Sent HTTP GET request to query customer info

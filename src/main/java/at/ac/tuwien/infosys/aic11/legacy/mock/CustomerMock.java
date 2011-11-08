@@ -53,6 +53,14 @@ public class CustomerMock implements CustomerInterface {
 			c.setCustomerid((Long)mockCustomers[i][0]);
 			c.setFirstname((String)mockCustomers[i][1]);
 			c.setLastname((String)mockCustomers[i][2]);
+			Address a = new Address();
+			a.setId((Long)mockCustomers[i][3]);
+			a.setStreet((String)mockCustomers[i][4]);
+			a.setCity((String)mockCustomers[i][5]);
+			a.setHouse((String)mockCustomers[i][6]);
+			a.setDoor((String)mockCustomers[i][7]);
+			a.setZipcode((String)mockCustomers[i][8]);
+			c.setAddress(a);
 			customers.put((Long)mockCustomers[i][0], c);
 		}
 		for(int i=0;i<mockWarrantors.length;i++) {
