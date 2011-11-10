@@ -1,12 +1,9 @@
 package at.ac.tuwien.infosys.aic11.services;
 
-import javax.jws.WebService;
-
-import at.ac.tuwien.infosys.aic11.data.CreditRequest;
+import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestDTO;
 
 
-@WebService(targetNamespace = "http://at.ac.tuwien.infosys.aic11.services")
 public interface ShippingService {
 
-	public void shipContract( CreditRequest cr );
+	public void acceptOffer( CreditRequestDTO cr );
 }

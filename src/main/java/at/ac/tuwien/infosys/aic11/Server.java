@@ -4,11 +4,10 @@ import java.util.logging.Logger;
 
 import javax.xml.ws.Endpoint;
 
-import org.apache.cxf.frontend.ServerFactoryBean;
+import org.apache.cxf.annotations.Logging;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 
-import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementServiceImpl;
 import at.ac.tuwien.infosys.aic11.services.RatingService;
 import at.ac.tuwien.infosys.aic11.services.RatingServiceImpl;

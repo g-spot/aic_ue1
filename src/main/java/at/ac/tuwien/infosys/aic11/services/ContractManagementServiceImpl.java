@@ -3,34 +3,36 @@ package at.ac.tuwien.infosys.aic11.services;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import org.apache.cxf.feature.Features;
+import org.apache.cxf.interceptor.InInterceptors;
+import org.apache.cxf.interceptor.OutInterceptors;
+
 import at.ac.tuwien.infosys.aic11.data.CreditRequest;
+import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestDTO;
+import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestMarshaller;
+import at.ac.tuwien.infosys.aic11.legacy.ContractInterface;
+import at.ac.tuwien.infosys.aic11.legacy.mock.ContractMock;
 
-
-
-//TODO ENCRYPT
+@WebService( targetNamespace = "http://at.ac.tuwien.infosys.aic11.services" )
+@Features( features = "org.apache.cxf.feature.LoggingFeature" )
+@InInterceptors( interceptors = "at.ac.tuwien.infosys.aic11.services.security.SecurityInInterceptor" )
+@OutInterceptors( interceptors = "at.ac.tuwien.infosys.aic11.services.security.SecurityOutInterceptor" )
 public class ContractManagementServiceImpl implements ContractManagementService {
 
+	ContractInterface ci = ContractMock.getInstance();
+	
 	@WebMethod
 	public CreditRequest generateCreditRequestOffer(CreditRequest cr) {
-		// TODO Auto-generated method stub
-		return null;
+		return ci.generateCreditRequestOffer( cr );
 	}
 
 	@WebMethod
 	public void updateCreditRequest(CreditRequest cr) {
-		// TODO Auto-generated method stub
-		
+		ci.updateCreditRequest( cr );
 	}
 
 	@WebMethod
-	public void acceptOffer(CreditRequest cr) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@WebMethod
-	public void declineOffer(CreditRequest cr) {
-		// TODO Auto-generated method stub
-		
+	public void declineOffer(CreditRequestDTO cr) {
+		ci.declineOffer( CreditRequestMarshaller.unmarshall( cr ) );
 	}
 }

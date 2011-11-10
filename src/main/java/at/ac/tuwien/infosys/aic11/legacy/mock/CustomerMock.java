@@ -27,8 +27,10 @@ public class CustomerMock implements CustomerInterface {
         return instance;
     }
 
-	public void addCustomer(Customer c) {
-		customers.put(c.getCustomerid(), c);
+	public long addCustomer(Customer c) {
+		c.setCustomerid( customers.size() );
+		customers.put( c.getCustomerid(), c );
+		return c.getCustomerid();
 	}
 
 	public Customer getCustomer(long id) {

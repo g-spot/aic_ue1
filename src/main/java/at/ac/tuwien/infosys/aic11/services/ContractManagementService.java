@@ -1,23 +1,12 @@
 package at.ac.tuwien.infosys.aic11.services;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-
 import at.ac.tuwien.infosys.aic11.data.CreditRequest;
+import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestDTO;
 
-@WebService(targetNamespace = "http://at.ac.tuwien.infosys.aic11.services")
 public interface ContractManagementService {
 
-	@WebMethod
 	public CreditRequest generateCreditRequestOffer( CreditRequest cr );
-	
-	@WebMethod
 	public void updateCreditRequest( CreditRequest cr );
-	
-	@WebMethod
-	public void acceptOffer( CreditRequest cr );
-	
-	@WebMethod
-	public void declineOffer( CreditRequest cr );
+	public void declineOffer( CreditRequestDTO cr );
 	
 }

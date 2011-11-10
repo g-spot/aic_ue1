@@ -1,13 +1,9 @@
 package at.ac.tuwien.infosys.aic11;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.soap.SOAPBinding;
 
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
@@ -52,6 +48,10 @@ public class App
         InputStream in = url.openStream();
         System.out.println(getStringFromInputStream(in));
     	
+        //TODO SHORTY: for contractmanagementservice calls ->
+        //TODO SHORTY: factory.getInInterceptors().add(new SecurityInInterceptor());
+    	//TODO SHORTY: factory.getOutInterceptors().add(new SecurityOutInterceptor());
+        
     	//Thread.sleep(10000);
     }
     
