@@ -1,6 +1,5 @@
 package at.ac.tuwien.infosys.aic11.services;
 
-import javax.jws.WebService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javax.xml.ws.Endpoint;
 
-import org.apache.cxf.annotations.Logging;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 
