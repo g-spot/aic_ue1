@@ -13,8 +13,33 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <cxf.version>2.4.3</cxf.version>
   </properties>
-
+<build>
+<plugins>
+<plugin>
+	<groupId>org.apache.cxf</groupId>
+	<artifactId>cxf-codegen-plugin</artifactId>
+	<version>${cxf.version}</version>
+	<executions>
+		<execution>
+			<id>generate-sources</id>
+			<configuration>
+				<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+				<wsdlOptions>
+					<wsdlOption>
+						<wsdl>${basedir}/src/main/java/wsdl/registry_service.wsdl</wsdl>
+					</wsdlOption>
+				</wsdlOptions>
+			</configuration>
+			<goals>
+				<goal>wsdl2java</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin> 
+</plugins>
+</build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -27,6 +52,17 @@
     	<artifactId>apache-cxf</artifactId>
     	<version>2.4.3</version>
     	<type>pom</type>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxws</artifactId>
+      <version>${cxf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-transports-http</artifactId>
+      <version>${cxf.version}</version>
     </dependency>
   </dependencies>
 </project>
