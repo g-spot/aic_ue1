@@ -21,9 +21,11 @@ import org.opensaml.ws.wsaddressing.Address;
 
 import at.ac.tuwien.infosys.aic11.data.CreditRequest;
 import at.ac.tuwien.infosys.aic11.data.Customer;
+import at.ac.tuwien.infosys.aic11.data.CustomerRating;
 import at.ac.tuwien.infosys.aic11.data.Duration;
 import at.ac.tuwien.infosys.aic11.data.Money;
 import at.ac.tuwien.infosys.aic11.data.Offer;
+import at.ac.tuwien.infosys.aic11.data.Rating;
 import at.ac.tuwien.infosys.aic11.data.Warrantor;
 import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestMarshaller;
 import at.ac.tuwien.infosys.aic11.legacy.mock.CustomerMock;
@@ -212,10 +214,22 @@ public class ClerkCommandLineInterface {
 	    			this.c.setLastname(inputLineFromCli("Last name: "));
 	    			
 	    			at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
-	    			adr.setStreet("FakeStreet");
+	    			adr.setId(Long.parseLong(inputLineFromCli("AdressId: ")));
+	    			adr.setStreet(inputLineFromCli("Street: "));
+	    			adr.setCity(inputLineFromCli("City: "));
+	    			adr.setDoor(inputLineFromCli("Door: "));
+	    			adr.setHouse(inputLineFromCli("House: "));
+	    			adr.setZipcode(inputLineFromCli("Zipcode: "));
 	    			
 					this.c.setAddress(adr);
+					this.c.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
 	    			
+					Rating rating = new Rating();
+					rating.setCustomer(this.c);
+					rating.setCustomerrating(CustomerRating.A);
+					
+					this.c.setRating(rating);
+					
 					cr.addCustomer(c);
 	    	}
 	    	else if(selection.equals("2"))
@@ -296,7 +310,7 @@ public class ClerkCommandLineInterface {
         return bos.getOut().toString();
     }
     
-    private String getCustomerRating()
+    private String getCustomerRating(Customer customer)
     {
     	String ratingRequest = "http://localhost:9001/ratingservice/rating/";
     	
@@ -304,7 +318,7 @@ public class ClerkCommandLineInterface {
 		
 		InputStream in = null;
 		try {
-			url = new URL(ratingRequest+c.getCustomerid());
+			url = new URL(ratingRequest+customer.getCustomerid());
 			in = url.openStream();        
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
