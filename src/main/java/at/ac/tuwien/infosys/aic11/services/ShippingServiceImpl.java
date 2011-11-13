@@ -6,6 +6,8 @@ import at.ac.tuwien.infosys.aic11.data.CreditRequest;
 import at.ac.tuwien.infosys.aic11.data.Customer;
 import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestDTO;
 import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestMarshaller;
+import at.ac.tuwien.infosys.aic11.legacy.ShippingInterface;
+import at.ac.tuwien.infosys.aic11.legacy.mock.ShippingMock;
 
 public class ShippingServiceImpl implements ShippingService{
 
@@ -17,28 +19,32 @@ public class ShippingServiceImpl implements ShippingService{
 	
 	private class Disburser extends Thread {
 		
+		private Customer c;
+		
 		public Disburser( Customer c ) {
-			// TODO Auto-generated constructor stub
+			this.c = c;
 		}
 		
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			super.run();
+			//TODO Shorty: WS Call
 		}
 	}
 	
 	private class Shipper extends Thread {
 		
+		private CreditRequest cr;
+		private ShippingInterface si = new ShippingMock();
+		
 		public Shipper( CreditRequest cr ) {
-			
+			this.cr = cr;
 		}
 		
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			super.run();
-			
+			si.shipRequest( this.cr );
 		}
 	}
 }
