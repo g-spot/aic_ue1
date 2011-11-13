@@ -79,4 +79,13 @@ public class Customer {
 	public void setRating(Rating rating) {
 		this.rating = rating;
 	}
+	public at.ac.tuwien.infosys.aic11.services.Customer toCustomer() {
+		at.ac.tuwien.infosys.aic11.services.Customer c = new at.ac.tuwien.infosys.aic11.services.Customer();
+		c.setAddress( this.address.toAddress() );
+		c.setCustomerId( this.customerid );
+		c.setFirstName( this.firstname );
+		c.setLastName( this.lastname );
+		c.setMiddleName( this.middlename );
+		return c;
+	}
 }

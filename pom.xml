@@ -15,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <cxf.version>2.4.3</cxf.version>
   </properties>
-<!-- <build>
+<build>
 <plugins>
 	<plugin>
 		<groupId>org.apache.cxf</groupId>
@@ -28,7 +28,7 @@
 					<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 					<wsdlOptions>
 						<wsdlOption>
-							<wsdl>${basedir}/src/main/java/wsdl/registry_service.wsdl</wsdl>
+							<wsdl>http://vc.infosys.tuwien.ac.at:8090/banking?wsdl</wsdl>
 						</wsdlOption>
 					</wsdlOptions>
 				</configuration>
@@ -39,7 +39,7 @@
 		</executions>
 	</plugin> 
 </plugins>
-</build> -->
+</build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

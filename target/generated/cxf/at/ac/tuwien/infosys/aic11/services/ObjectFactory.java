@@ -24,12 +24,14 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _WsdlEndpoint_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "wsdl_endpoint");
-    private final static QName _Query_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "query");
+    private final static QName _Address_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "address");
+    private final static QName _StartMoneyTransferProcess_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "start_money_transfer_process");
     private final static QName _InvalidParameter_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "invalid_parameter");
     private final static QName _DisbursementPreference_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "disbursement_preference");
-    private final static QName _QueryResponse_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "queryResponse");
+    private final static QName _Money_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "money");
+    private final static QName _StartMoneyTransferProcessResponse_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "start_money_transfer_processResponse");
     private final static QName _Cheque_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "cheque");
+    private final static QName _Customer_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "customer");
     private final static QName _BankTransfer_QNAME = new QName("http://services.aic11.infosys.tuwien.ac.at/", "bank_transfer");
 
     /**
@@ -37,6 +39,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link Address }
+     * 
+     */
+    public Address createAddress() {
+        return new Address();
     }
 
     /**
@@ -48,27 +58,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InvalidParameter }
+     * Create an instance of {@link StartMoneyTransferProcess }
      * 
      */
-    public InvalidParameter createInvalidParameter() {
-        return new InvalidParameter();
-    }
-
-    /**
-     * Create an instance of {@link Query }
-     * 
-     */
-    public Query createQuery() {
-        return new Query();
-    }
-
-    /**
-     * Create an instance of {@link WsdlEndpoint }
-     * 
-     */
-    public WsdlEndpoint createWsdlEndpoint() {
-        return new WsdlEndpoint();
+    public StartMoneyTransferProcess createStartMoneyTransferProcess() {
+        return new StartMoneyTransferProcess();
     }
 
     /**
@@ -80,29 +74,53 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link QueryResponse }
+     * Create an instance of {@link Customer }
      * 
      */
-    public QueryResponse createQueryResponse() {
-        return new QueryResponse();
+    public Customer createCustomer() {
+        return new Customer();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link WsdlEndpoint }{@code >}}
+     * Create an instance of {@link StartMoneyTransferProcessResponse }
      * 
      */
-    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "wsdl_endpoint")
-    public JAXBElement<WsdlEndpoint> createWsdlEndpoint(WsdlEndpoint value) {
-        return new JAXBElement<WsdlEndpoint>(_WsdlEndpoint_QNAME, WsdlEndpoint.class, null, value);
+    public StartMoneyTransferProcessResponse createStartMoneyTransferProcessResponse() {
+        return new StartMoneyTransferProcessResponse();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Query }{@code >}}
+     * Create an instance of {@link InvalidParameter }
      * 
      */
-    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "query")
-    public JAXBElement<Query> createQuery(Query value) {
-        return new JAXBElement<Query>(_Query_QNAME, Query.class, null, value);
+    public InvalidParameter createInvalidParameter() {
+        return new InvalidParameter();
+    }
+
+    /**
+     * Create an instance of {@link Money }
+     * 
+     */
+    public Money createMoney() {
+        return new Money();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Address }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "address")
+    public JAXBElement<Address> createAddress(Address value) {
+        return new JAXBElement<Address>(_Address_QNAME, Address.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link StartMoneyTransferProcess }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "start_money_transfer_process")
+    public JAXBElement<StartMoneyTransferProcess> createStartMoneyTransferProcess(StartMoneyTransferProcess value) {
+        return new JAXBElement<StartMoneyTransferProcess>(_StartMoneyTransferProcess_QNAME, StartMoneyTransferProcess.class, null, value);
     }
 
     /**
@@ -124,12 +142,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link QueryResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Money }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "queryResponse")
-    public JAXBElement<QueryResponse> createQueryResponse(QueryResponse value) {
-        return new JAXBElement<QueryResponse>(_QueryResponse_QNAME, QueryResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "money")
+    public JAXBElement<Money> createMoney(Money value) {
+        return new JAXBElement<Money>(_Money_QNAME, Money.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link StartMoneyTransferProcessResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "start_money_transfer_processResponse")
+    public JAXBElement<StartMoneyTransferProcessResponse> createStartMoneyTransferProcessResponse(StartMoneyTransferProcessResponse value) {
+        return new JAXBElement<StartMoneyTransferProcessResponse>(_StartMoneyTransferProcessResponse_QNAME, StartMoneyTransferProcessResponse.class, null, value);
     }
 
     /**
@@ -139,6 +166,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "cheque")
     public JAXBElement<Cheque> createCheque(Cheque value) {
         return new JAXBElement<Cheque>(_Cheque_QNAME, Cheque.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Customer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services.aic11.infosys.tuwien.ac.at/", name = "customer")
+    public JAXBElement<Customer> createCustomer(Customer value) {
+        return new JAXBElement<Customer>(_Customer_QNAME, Customer.class, null, value);
     }
 
     /**

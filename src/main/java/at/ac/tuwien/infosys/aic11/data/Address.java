@@ -61,4 +61,15 @@ public class Address {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+
+	public at.ac.tuwien.infosys.aic11.services.Address toAddress() {
+		at.ac.tuwien.infosys.aic11.services.Address a = new at.ac.tuwien.infosys.aic11.services.Address();
+		a.setCity( this.city );
+		a.setCountryCode( "" );
+		a.setDoor( this.door );
+		a.setHouse( this.house );
+		a.setPostalCode( this.zipcode );
+		a.setStreet( this.street );
+		return a;
+	}
 }
