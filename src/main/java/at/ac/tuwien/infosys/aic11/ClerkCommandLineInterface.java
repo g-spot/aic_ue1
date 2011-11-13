@@ -210,7 +210,13 @@ public class ClerkCommandLineInterface {
 	    			this.c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
 	    			this.c.setFirstname(inputLineFromCli("First name: "));
 	    			this.c.setLastname(inputLineFromCli("Last name: "));
-	    			cr.addCustomer(c);
+	    			
+	    			at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
+	    			adr.setStreet("FakeStreet");
+	    			
+					this.c.setAddress(adr);
+	    			
+					cr.addCustomer(c);
 	    	}
 	    	else if(selection.equals("2"))
 	    	{
