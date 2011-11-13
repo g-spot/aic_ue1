@@ -7,10 +7,13 @@ import javax.xml.ws.Endpoint;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 
+import at.ac.tuwien.infosys.aic11.services.ContractManagementService;
 import at.ac.tuwien.infosys.aic11.services.ContractManagementServiceImpl;
+import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementServiceImpl;
 import at.ac.tuwien.infosys.aic11.services.RatingService;
 import at.ac.tuwien.infosys.aic11.services.RatingServiceImpl;
+import at.ac.tuwien.infosys.aic11.services.ShippingService;
 import at.ac.tuwien.infosys.aic11.services.ShippingServiceImpl;
 
 public class Server {
@@ -36,8 +39,8 @@ public class Server {
 		logger.info("Starting CustomerRelationsManagementService...");
 
 		// WORKS
-		CustomerRelationsManagementServiceImpl crManagerImpl = new CustomerRelationsManagementServiceImpl();
-		String address = "http://localhost:9000/CRService";
+		CustomerRelationsManagementService crManagerImpl = new CustomerRelationsManagementServiceImpl();
+		String address = "http://localhost:9000/CustomerRelationsManagementService";
 		Endpoint.publish(address, crManagerImpl);
 
 		// DOES NOT WORK
@@ -79,7 +82,7 @@ public class Server {
 	private void startCrontractManagementService(){
 		logger.info("Starting CrontractManagementService...");
 		
-		ContractManagementServiceImpl cmManagerImpl = new ContractManagementServiceImpl();
+		ContractManagementService cmManagerImpl = new ContractManagementServiceImpl();
 		String address = "http://localhost:9002/CMService";
 		Endpoint.publish(address, cmManagerImpl);
 
@@ -88,7 +91,7 @@ public class Server {
 	private void startShippingService(){
 		logger.info("Starting ShippingService...");
 		
-		ShippingServiceImpl sManagerImpl = new ShippingServiceImpl();
+		ShippingService sManagerImpl = new ShippingServiceImpl();
 		String address = "http://localhost:9003/ShippingService";
 		Endpoint.publish(address, sManagerImpl);
 
