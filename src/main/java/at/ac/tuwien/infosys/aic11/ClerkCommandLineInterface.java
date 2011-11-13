@@ -224,12 +224,8 @@ public class ClerkCommandLineInterface {
 	    			
 					this.c.setAddress(adr);
 					this.c.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
-	    			
-					Rating rating = new Rating();
-					rating.setCustomer(this.c);
-					rating.setCustomerrating(CustomerRating.A);
 					
-					this.c.setRating(rating);
+					this.c.setRating(getCustomerRating(this.c));
 					
 					cr.addCustomer(c);
 	    	}
@@ -277,7 +273,18 @@ public class ClerkCommandLineInterface {
     	Warrantor w = new Warrantor();
     	System.out.println("Creating Warrantor...");
 
-    	// TODO wie eine adresse?? und was alles soll da eingegeben werden und was gibts schon
+		at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
+		adr.setId(Long.parseLong(inputLineFromCli("AdressId: ")));
+		adr.setStreet(inputLineFromCli("Street: "));
+		adr.setCity(inputLineFromCli("City: "));
+		adr.setDoor(inputLineFromCli("Door: "));
+		adr.setHouse(inputLineFromCli("House: "));
+		adr.setZipcode(inputLineFromCli("Zipcode: "));
+		
+		w.setAddress(adr);
+		w.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
+		
+		w.setRating(getCustomerRating(w));
     	
     	w.setFirstname(inputLineFromCli("Firstname: "));
     	w.setLastname(inputLineFromCli("Lastname: "));
