@@ -37,5 +37,9 @@ public class App
     	//TODO SHORTY: factory.getOutInterceptors().add(new SecurityOutInterceptor());
         
     	//Thread.sleep(10000);
+    	
+    	ClerkCommandLineInterface clerkInterface = new ClerkCommandLineInterface();
+    	clerkInterface.runCommandLineInterface();
+    	
     }
 }

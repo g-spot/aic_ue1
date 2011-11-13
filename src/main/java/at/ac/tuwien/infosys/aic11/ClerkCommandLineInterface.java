@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
@@ -14,38 +17,68 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.opensaml.ws.wsaddressing.Address;
 
 import at.ac.tuwien.infosys.aic11.data.CreditRequest;
 import at.ac.tuwien.infosys.aic11.data.Customer;
+import at.ac.tuwien.infosys.aic11.data.Duration;
+import at.ac.tuwien.infosys.aic11.data.Money;
+import at.ac.tuwien.infosys.aic11.data.Offer;
+import at.ac.tuwien.infosys.aic11.data.Warrantor;
+import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestMarshaller;
 import at.ac.tuwien.infosys.aic11.legacy.mock.CustomerMock;
+import at.ac.tuwien.infosys.aic11.services.ContractManagementService;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
+import at.ac.tuwien.infosys.aic11.services.ShippingService;
+import at.ac.tuwien.infosys.aic11.services.security.SecurityInInterceptor;
+import at.ac.tuwien.infosys.aic11.services.security.SecurityOutInterceptor;
 
 public class ClerkCommandLineInterface {
-	private String address;
-	private JaxWsProxyFactoryBean factory;
 	private CustomerRelationsManagementService cr;
 	private Customer c;
-	private CustomerMock cm;
-
+	private CustomerMock cmock;
+	private CreditRequest creditrequest;
+	private ContractManagementService cm;
+	private ShippingService sservice;
 	
 	public ClerkCommandLineInterface(){
 		
-		this.address = "http://localhost:9000/CRService";
-		//"http://localhost:9002/CMService"
-		//"http://localhost:9003/ShippingService"
+		this.c = null;
+	    this.cmock = CustomerMock.getInstance();		
+		this.creditrequest = null;
 		
-		this.factory = new JaxWsProxyFactoryBean();
+	    //QName service_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementService");
+	    //QName port_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementServicePort");
+
+		String address = "http://localhost:9000/CRService";
+		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 		
 		factory.getInInterceptors().add(new LoggingInInterceptor());
 		factory.getOutInterceptors().add(new LoggingOutInterceptor());
 		factory.setServiceClass(CustomerRelationsManagementService.class);
 		factory.setAddress(address);
 		
-		this.c = null;
-		
 	    this.cr = (CustomerRelationsManagementService)factory.create();
-	   
-	    this.cm = CustomerMock.getInstance();
+	    
+		address = "http://localhost:9002/CMService";
+		factory = new JaxWsProxyFactoryBean();
+		
+		factory.getInInterceptors().add(new SecurityInInterceptor());
+		factory.getOutInterceptors().add(new SecurityOutInterceptor());
+		factory.setServiceClass(ContractManagementService.class);
+		factory.setAddress(address);
+		
+	    this.cm = (ContractManagementService)factory.create();	 
+	    
+		address = "http://localhost:9003/ShippingService";
+		factory = new JaxWsProxyFactoryBean();
+		
+		factory.getInInterceptors().add(new LoggingInInterceptor());
+		factory.getOutInterceptors().add(new LoggingOutInterceptor());
+		factory.setServiceClass(ShippingService.class);
+		factory.setAddress(address);
+		
+	    this.sservice = (ShippingService)factory.create();
 		
 	}
 	
@@ -76,8 +109,9 @@ public class ClerkCommandLineInterface {
     	menuString += "(1) create customer\n\r"; // create new customer or select from existing mock up
     	menuString += "(2) create credit request\n\r"; // create request and fill with data
     	menuString += "(3) update request\n\r"; // change data here
-    	menuString += "(4) accept\n\r"; // disbursement + shipping in thread each
-    	menuString += "(5) decline\n\r"; // remove only
+    	menuString += "(4) generate Offer\n\r";
+    	menuString += "(5) accept\n\r"; // disbursement + shipping in thread each
+    	menuString += "(6) decline\n\r"; // remove only
     	menuString += "(Q) Exit\n\r";
     	
     	return menuString;
@@ -102,8 +136,8 @@ public class ClerkCommandLineInterface {
     		case 2:
     				if(this.c != null)
     				{
-    					// TODO CREATE REQUEST 
-    					
+    					// CREATE REQUEST 
+    					this.creditrequest = generateCreditRequest();
         				returnString = "Credit request created.\n\r";
     				}
     				else
@@ -114,7 +148,9 @@ public class ClerkCommandLineInterface {
     		case 3:
 					if(this.c != null)
 					{
-						// TODO update REQUEST
+						// TODO write function for update REQUEST
+						this.creditrequest = generateCreditRequest();
+						this.cm.updateCreditRequest(this.creditrequest);
 						returnString = "Credit request updated.\n\r";
 					}
 					else
@@ -122,13 +158,26 @@ public class ClerkCommandLineInterface {
 						returnString = "Please create or select a customer first.\n\r";
 					}
     			break;
-    			
     		case 4:
-    				// TODO accept request 
-    				returnString = "Accapted offer - shipping contract and sending disbursement.\n\r";
+    				if(this.creditrequest != null)
+    				{
+        				this.cm.generateCreditRequestOffer(this.creditrequest);   
+        				returnString = "Offer created.\n\r";
+    				}
+    				else
+    				{
+    					returnString = "Please create credit request first.\n\r";
+    				}
+    			
     			break;
     		case 5:
-    				// TODO call remove
+    				// accept offer 
+    				this.sservice.acceptOffer(CreditRequestMarshaller.marshall(creditrequest));
+    				returnString = "Accapted offer - shipping contract and sending disbursement.\n\r";
+    			break;
+    		case 6:
+    				// call remove
+    				this.cm.declineOffer(CreditRequestMarshaller.marshall(this.creditrequest));
     				returnString = "Declined offer - deleted offer from the system. \n\r";
     			break;
     		default:
@@ -139,7 +188,7 @@ public class ClerkCommandLineInterface {
     
     private void generateCreateCustomerInteraction()
     {
-    	// print customers to select or select to create new
+    	// select customer or select to create new
     	String menuString = "";
     	String selection = "";
     	String selectedId = "";
@@ -158,16 +207,16 @@ public class ClerkCommandLineInterface {
 	    			this.c = new Customer();
 	    			
 	    			// input new customer
-	    			c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
-	    			c.setFirstname(inputLineFromCli("First name: "));
-	    			c.setLastname(inputLineFromCli("Last name: "));
+	    			this.c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
+	    			this.c.setFirstname(inputLineFromCli("First name: "));
+	    			this.c.setLastname(inputLineFromCli("Last name: "));
 	    			cr.addCustomer(c);
 	    	}
 	    	else if(selection.equals("2"))
 	    	{
 	    		// get customer from mock?
 	    		selectedId = inputLineFromCli("CostumerId: ");
-	    		c = cm.getCustomer(Long.parseLong(selectedId));
+	    		this.c = cmock.getCustomer(Long.parseLong(selectedId));
 	    	}
 	    	else
 	    	{
@@ -180,10 +229,45 @@ public class ClerkCommandLineInterface {
     {
     	CreditRequest creditRequest = new CreditRequest();
     	
-    	//TODO check what has to be done here
+    	creditRequest.setRequestid(Long.parseLong(inputLineFromCli("RequestId: ")));
+    	creditRequest.setReason( inputLineFromCli("Reason: "));
+    	creditRequest.setCustomer( this.c );
+    	
+    	
+    	Duration  d = new Duration();
+    	d.setYears(Integer.parseInt(inputLineFromCli("Duration in years: ")));
+    	creditRequest.setDuration(d);
+    	
+    	Money m = new Money();
+    	m.setAmount(Long.parseLong(inputLineFromCli("Amount: ")));
+    	m.setCurrencycode(inputLineFromCli("Currencycode: "));
+    	creditRequest.setMoney(m);
+    	
+    	// TODO add warrantors
+    	
+    	Offer o = new Offer();
+    	// TODO offer kommt doch erst vom service?
     	
     	return creditRequest;
     }
+    
+    private Warrantor inputWarrantor()
+    {
+    	Warrantor w = new Warrantor();
+    	System.out.println("Creating Warrantor...");
+
+    	// TODO wie eine adresse?? und was alles soll da eingegeben werden und was gibts schon
+    	
+    	w.setFirstname(inputLineFromCli("Firstname: "));
+    	w.setLastname(inputLineFromCli("Lastname: "));
+    	//w.setDisbursementrating("Disbursementrating: ");
+    	w.setMiddlename(inputLineFromCli("Middlename: "));
+    	w.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
+    	//w.setRating("");
+    	
+    	return w;
+    }
+    
     private String inputLineFromCli(String text)
     {
 		System.out.println(text);
