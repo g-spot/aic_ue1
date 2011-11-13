@@ -7,28 +7,21 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.namespace.QName;
 
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.opensaml.ws.wsaddressing.Address;
 
 import at.ac.tuwien.infosys.aic11.data.CreditRequest;
 import at.ac.tuwien.infosys.aic11.data.Customer;
 import at.ac.tuwien.infosys.aic11.data.CustomerRating;
 import at.ac.tuwien.infosys.aic11.data.Duration;
 import at.ac.tuwien.infosys.aic11.data.Money;
-import at.ac.tuwien.infosys.aic11.data.Offer;
 import at.ac.tuwien.infosys.aic11.data.Rating;
 import at.ac.tuwien.infosys.aic11.data.Warrantor;
 import at.ac.tuwien.infosys.aic11.data.dtos.CreditRequestMarshaller;
-import at.ac.tuwien.infosys.aic11.legacy.mock.CustomerMock;
 import at.ac.tuwien.infosys.aic11.services.ContractManagementService;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
 import at.ac.tuwien.infosys.aic11.services.ShippingService;
