@@ -23,9 +23,9 @@ public class Server {
 	private void startServer() throws Exception {
 		logger.info("Starting server...");
 		startCRService();
-		startRatingService();
 		startCrontractManagementService();
 		startShippingService();
+		startRatingService();
 		logger.info("Server ready");
 
 		System.in.read(); // wait for some input from console to exit server
@@ -78,6 +78,7 @@ public class Server {
 	
 	private void startCrontractManagementService(){
 		logger.info("Starting CrontractManagementService...");
+		
 		ContractManagementServiceImpl cmManagerImpl = new ContractManagementServiceImpl();
 		String address = "http://localhost:9002/CMService";
 		Endpoint.publish(address, cmManagerImpl);
@@ -86,6 +87,7 @@ public class Server {
 	}
 	private void startShippingService(){
 		logger.info("Starting ShippingService...");
+		
 		ShippingServiceImpl sManagerImpl = new ShippingServiceImpl();
 		String address = "http://localhost:9003/ShippingService";
 		Endpoint.publish(address, sManagerImpl);
