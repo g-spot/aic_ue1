@@ -33,7 +33,8 @@ public class ContractMock implements ContractInterface {
 	}
 
 	public void acceptOffer(CreditRequest cr) {
-		// TODO
+		//TODO
+
 	}
 
 	public void declineOffer(CreditRequest cr) {
