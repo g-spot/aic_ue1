@@ -4,6 +4,9 @@ public class CreditRequestDTO {
 
 	private long creditrequestid = 0l;
 
+	public CreditRequestDTO( ) {
+
+	}
 	public CreditRequestDTO( long id ) {
 		this.creditrequestid = id;
 	}

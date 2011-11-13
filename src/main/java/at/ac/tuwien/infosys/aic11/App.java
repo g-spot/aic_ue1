@@ -1,24 +1,5 @@
 package at.ac.tuwien.infosys.aic11;
 
-import java.io.InputStream;
-import java.net.URL;
-
-import javax.xml.namespace.QName;
-
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.cxf.interceptor.LoggingInInterceptor;
-import org.apache.cxf.interceptor.LoggingOutInterceptor;
-import org.apache.cxf.io.CachedOutputStream;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-
-import at.ac.tuwien.infosys.aic11.data.Customer;
-import at.ac.tuwien.infosys.aic11.services.BankTransfer;
-import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
-import at.ac.tuwien.infosys.aic11.services.DisbursementPreference;
-import at.ac.tuwien.infosys.aic11.services.IRegistryService;
-import at.ac.tuwien.infosys.aic11.services.RegistryService;
-import at.ac.tuwien.infosys.aic11.services.WsdlEndpoint;
-
 
 /**
  * Hello world!
@@ -56,15 +37,5 @@ public class App
     	//TODO SHORTY: factory.getOutInterceptors().add(new SecurityOutInterceptor());
         
     	//Thread.sleep(10000);
-    	
-    	URL registry_wsdl = App.class.getClassLoader().getResource( "wsdl/registry_service.wsdl" );
-		// if we dont't do this, it takes the absolute path from the generated files
-		IRegistryService rs = new RegistryService( registry_wsdl ).getRegistryService();
-		WsdlEndpoint wsep;
-		wsep = rs.query( new BankTransfer() );
-		
     }
-    
-
-    
 }

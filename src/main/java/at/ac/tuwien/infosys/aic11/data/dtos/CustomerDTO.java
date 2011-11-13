@@ -4,6 +4,10 @@ public class CustomerDTO {
 
 	private long customerid = 0l;
 
+	public CustomerDTO( ) {
+
+	}
+	
 	public CustomerDTO( long id ) {
 		this.customerid = id;
 	}
