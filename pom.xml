@@ -15,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <cxf.version>2.4.3</cxf.version>
   </properties>
-<build>
+<!-- <build>
 <plugins>
 	<plugin>
 		<groupId>org.apache.cxf</groupId>
@@ -39,7 +39,7 @@
 		</executions>
 	</plugin> 
 </plugins>
-</build>
+</build> -->
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

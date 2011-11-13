@@ -6,11 +6,13 @@ public class BankTransfer implements DisbursementPreference {
 	private String bic;
 	private String iban;
 	
-	public BankTransfer()
-	{
-		
-	}
+	public BankTransfer() {}
 	
+	public BankTransfer( at.ac.tuwien.infosys.aic11.services.BankTransfer bt ) {
+		this.bankname = bt.getBankName();
+		this.bic = bt.getBic();
+		this.iban = bt.getIban();
+	}
 	
 	public String getBankname() {
 		return bankname;
@@ -45,5 +47,28 @@ public class BankTransfer implements DisbursementPreference {
 	@Override
 	public String toString() {
 		return "Bank Transfer: " + bankname + "; bic: " + bic + "; iban: " + iban;
+	}
+	
+	//STUPID university packaging causes the need for mapping and polutes our buisness objects
+	public at.ac.tuwien.infosys.aic11.services.BankTransfer toBankTransfer() {
+		at.ac.tuwien.infosys.aic11.services.BankTransfer bt = new at.ac.tuwien.infosys.aic11.services.BankTransfer();
+		bt.setBankName( this.bankname );
+		bt.setBic( this.bic );
+		bt.setIban( this.iban );
+		return bt;
+	}
+
+	public void fromRegistryService(
+			at.ac.tuwien.infosys.aic11.services.DisbursementPreference dp) {
+		if (dp instanceof at.ac.tuwien.infosys.aic11.services.BankTransfer) {
+			at.ac.tuwien.infosys.aic11.services.BankTransfer bt = (at.ac.tuwien.infosys.aic11.services.BankTransfer) dp;
+			this.bankname = bt.getBankName();
+			this.bic = bt.getBic();
+			this.iban = bt.getIban();
+		}
+	}
+
+	public at.ac.tuwien.infosys.aic11.services.DisbursementPreference toRegistryService() {
+		return toBankTransfer();
 	}
 }
