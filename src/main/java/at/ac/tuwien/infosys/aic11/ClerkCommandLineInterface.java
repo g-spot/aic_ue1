@@ -42,6 +42,7 @@ public class ClerkCommandLineInterface {
 		factory.getOutInterceptors().add(new LoggingOutInterceptor());
 		factory.setServiceClass(CustomerRelationsManagementService.class);
 		factory.setAddress(address);
+		this.c = null;
 		
 	    this.cr = (CustomerRelationsManagementService)factory.create();
 	    this.cm = CustomerMock.getInstance();
@@ -102,12 +103,26 @@ public class ClerkCommandLineInterface {
     			break;
     		
     		case 2:
-    				// TODO CREATE REQUEST but check if customer is set!
-    				returnString = "Credit request created.\n\r";
+    				if(this.c != null)
+    				{
+    					// TODO CREATE REQUEST 
+        				returnString = "Credit request created.\n\r";
+    				}
+    				else
+    				{
+    					returnString = "Please create or select a customer first.\n\r";
+    				}
     			break;
     		case 3:
-    				// TODO update REQUEST but check if customer is set!
-    				returnString = "Credit request updated.\n\r";
+					if(this.c != null)
+					{
+						// TODO update REQUEST
+						returnString = "Credit request updated.\n\r";
+					}
+					else
+					{
+						returnString = "Please create or select a customer first.\n\r";
+					}
     			break;
     			
     		case 4:
