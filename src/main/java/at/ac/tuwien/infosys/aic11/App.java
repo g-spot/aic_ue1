@@ -1,18 +1,5 @@
 package at.ac.tuwien.infosys.aic11;
 
-import java.io.InputStream;
-import java.net.URL;
-
-import javax.xml.namespace.QName;
-
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.cxf.interceptor.LoggingInInterceptor;
-import org.apache.cxf.interceptor.LoggingOutInterceptor;
-import org.apache.cxf.io.CachedOutputStream;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-
-import at.ac.tuwien.infosys.aic11.data.Customer;
-import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
 
 
 /**

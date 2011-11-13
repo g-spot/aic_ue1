@@ -21,8 +21,6 @@ import at.ac.tuwien.infosys.aic11.legacy.mock.CustomerMock;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
 
 public class ClerkCommandLineInterface {
-	private QName service_name;
-	private QName port_name ;
 	private String address;
 	private JaxWsProxyFactoryBean factory;
 	private CustomerRelationsManagementService cr;
@@ -31,10 +29,10 @@ public class ClerkCommandLineInterface {
 
 	
 	public ClerkCommandLineInterface(){
-		this.service_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementService");
-		this.port_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementServicePort");
-		this.address = "http://localhost:9000/CRService";
 		
+		this.address = "http://localhost:9000/CRService";
+		//"http://localhost:9002/CMService"
+		//"http://localhost:9003/ShippingService"
 		
 		this.factory = new JaxWsProxyFactoryBean();
 		
@@ -42,9 +40,11 @@ public class ClerkCommandLineInterface {
 		factory.getOutInterceptors().add(new LoggingOutInterceptor());
 		factory.setServiceClass(CustomerRelationsManagementService.class);
 		factory.setAddress(address);
+		
 		this.c = null;
 		
 	    this.cr = (CustomerRelationsManagementService)factory.create();
+	   
 	    this.cm = CustomerMock.getInstance();
 		
 	}
@@ -103,6 +103,7 @@ public class ClerkCommandLineInterface {
     				if(this.c != null)
     				{
     					// TODO CREATE REQUEST 
+    					
         				returnString = "Credit request created.\n\r";
     				}
     				else
@@ -209,8 +210,6 @@ public class ClerkCommandLineInterface {
     {
     	String ratingRequest = "http://localhost:9001/ratingservice/rating/";
     	
-        // get rating of customer with id 202
-    	
         URL url;
 		
 		InputStream in = null;
@@ -232,11 +231,12 @@ public class ClerkCommandLineInterface {
 		}
         return "110";
     }
-    private String getWarrantorRating()
+/*    Wie was wann wo
+ * private String getWarrantorRating()
     {
     	String rating = "";
     	String ratingRequest = "http://localhost:9001/ratingservice/rating/";
     	
     	return rating; 
-    }
+    }*/
 }

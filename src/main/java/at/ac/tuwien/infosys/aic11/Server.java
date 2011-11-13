@@ -7,9 +7,11 @@ import javax.xml.ws.Endpoint;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 
+import at.ac.tuwien.infosys.aic11.services.ContractManagementServiceImpl;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementServiceImpl;
 import at.ac.tuwien.infosys.aic11.services.RatingService;
 import at.ac.tuwien.infosys.aic11.services.RatingServiceImpl;
+import at.ac.tuwien.infosys.aic11.services.ShippingServiceImpl;
 
 public class Server {
 	private Logger logger;
@@ -22,6 +24,8 @@ public class Server {
 		logger.info("Starting server...");
 		startCRService();
 		startRatingService();
+		startCrontractManagementService();
+		startShippingService();
 		logger.info("Server ready");
 
 		System.in.read(); // wait for some input from console to exit server
@@ -70,6 +74,23 @@ public class Server {
 
 		sf.create();
 		logger.info("RatingService running");
+	}
+	
+	private void startCrontractManagementService(){
+		logger.info("Starting CrontractManagementService...");
+		ContractManagementServiceImpl cmManagerImpl = new ContractManagementServiceImpl();
+		String address = "http://localhost:9002/CMService";
+		Endpoint.publish(address, cmManagerImpl);
+
+		logger.info("CrontractManagementService running");
+	}
+	private void startShippingService(){
+		logger.info("Starting ShippingService...");
+		ShippingServiceImpl sManagerImpl = new ShippingServiceImpl();
+		String address = "http://localhost:9003/ShippingService";
+		Endpoint.publish(address, sManagerImpl);
+
+		logger.info("ShippingService running");
 	}
 
 	/**
