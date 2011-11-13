@@ -232,7 +232,6 @@ public class ClerkCommandLineInterface {
 		rating.setCustomer(this.c);
 		rating.setCustomerrating(getCustomerRating(this.c));
 		this.c.setRating(rating);
-
     }
     
     private CreditRequest generateCreditRequest()
@@ -256,8 +255,7 @@ public class ClerkCommandLineInterface {
     	// TODO add warrantors
     	Warrantor w = inputWarrantor();
     	
-    	Offer o = new Offer();
-    	// TODO offer kommt doch erst vom service?
+    	creditRequest.addWarrentee(w);
     	
     	return creditRequest;
     }
