@@ -50,7 +50,7 @@ public class ClerkCommandLineInterface {
 	    //QName service_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementService");
 	    //QName port_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementServicePort");
 
-		String address = "http://localhost:9000/CRService";
+		String address = "http://localhost:9000/CustomerRelationsManagementService";
 		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 		
 		factory.getInInterceptors().add(new LoggingInInterceptor());
@@ -60,25 +60,25 @@ public class ClerkCommandLineInterface {
 		
 	    this.cr = (CustomerRelationsManagementService)factory.create();
 	    
-		address = "http://localhost:9002/CMService";
-		factory = new JaxWsProxyFactoryBean();
+		String cmaddress = "http://localhost:9002/CMService";
+		JaxWsProxyFactoryBean cmfactory = new JaxWsProxyFactoryBean();
 		
-		factory.getInInterceptors().add(new SecurityInInterceptor());
-		factory.getOutInterceptors().add(new SecurityOutInterceptor());
-		factory.setServiceClass(ContractManagementService.class);
-		factory.setAddress(address);
+		cmfactory.getInInterceptors().add(new SecurityInInterceptor());
+		cmfactory.getOutInterceptors().add(new SecurityOutInterceptor());
+		cmfactory.setServiceClass(ContractManagementService.class);
+		cmfactory.setAddress(cmaddress);
 		
-	    this.cm = (ContractManagementService)factory.create();	 
+	    this.cm = (ContractManagementService)cmfactory.create();	 
 	    
-		address = "http://localhost:9003/ShippingService";
-		factory = new JaxWsProxyFactoryBean();
+		String saddress = "http://localhost:9003/ShippingService";
+		JaxWsProxyFactoryBean sfactory = new JaxWsProxyFactoryBean();
 		
-		factory.getInInterceptors().add(new LoggingInInterceptor());
-		factory.getOutInterceptors().add(new LoggingOutInterceptor());
-		factory.setServiceClass(ShippingService.class);
-		factory.setAddress(address);
+		sfactory.getInInterceptors().add(new LoggingInInterceptor());
+		sfactory.getOutInterceptors().add(new LoggingOutInterceptor());
+		sfactory.setServiceClass(ShippingService.class);
+		sfactory.setAddress(saddress);
 		
-	    this.sservice = (ShippingService)factory.create();
+	    this.sservice = (ShippingService)sfactory.create();
 		
 	}
 	
@@ -161,7 +161,7 @@ public class ClerkCommandLineInterface {
     		case 4:
     				if(this.creditrequest != null)
     				{
-        				this.cm.generateCreditRequestOffer(this.creditrequest);   
+    					this.creditrequest = this.cm.generateCreditRequestOffer(this.creditrequest);   
         				returnString = "Offer created.\n\r";
     				}
     				else
