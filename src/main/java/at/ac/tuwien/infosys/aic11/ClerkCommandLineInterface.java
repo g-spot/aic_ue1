@@ -254,6 +254,7 @@ public class ClerkCommandLineInterface {
     	creditRequest.setMoney(m);
     	
     	// TODO add warrantors
+    	Warrantor w = inputWarrantor();
     	
     	Offer o = new Offer();
     	// TODO offer kommt doch erst vom service?
@@ -265,8 +266,14 @@ public class ClerkCommandLineInterface {
     {
     	Warrantor w = new Warrantor();
     	System.out.println("Creating Warrantor...");
-
-		at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
+    	
+    	w.setFirstname(inputLineFromCli("Firstname: "));
+    	w.setLastname(inputLineFromCli("Lastname: "));
+    	//w.setDisbursementrating("Disbursementrating: ");
+    	w.setMiddlename(inputLineFromCli("Middlename: "));
+    	w.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
+    	//w.setRating("");
+    	at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
 		adr.setId(Long.parseLong(inputLineFromCli("AdressId: ")));
 		adr.setStreet(inputLineFromCli("Street: "));
 		adr.setCity(inputLineFromCli("City: "));
@@ -275,16 +282,11 @@ public class ClerkCommandLineInterface {
 		adr.setZipcode(inputLineFromCli("Zipcode: "));
 		
 		w.setAddress(adr);
-		w.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
 		
-		w.setRating(getCustomerRating(w));
-    	
-    	w.setFirstname(inputLineFromCli("Firstname: "));
-    	w.setLastname(inputLineFromCli("Lastname: "));
-    	//w.setDisbursementrating("Disbursementrating: ");
-    	w.setMiddlename(inputLineFromCli("Middlename: "));
-    	w.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
-    	//w.setRating("");
+		Rating rating = new Rating();
+		rating.setCustomer(w);
+		rating.setCustomerrating(getCustomerRating(w));
+		w.setRating(rating);
     	
     	return w;
     }
