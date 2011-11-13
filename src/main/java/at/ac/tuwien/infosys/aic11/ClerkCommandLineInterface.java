@@ -70,10 +70,7 @@ public class ClerkCommandLineInterface {
     private String generateInputMenu()
     {
     	String menuString = new String();
-    	
-    	// TODO check already done points to avoid missing dependencies on following
-    	// TODO call only inputs in menu that are needed to complete (create customer -> create offer -> update offer -> accept / declain)
-    	
+      	
     	menuString += "Please select one of the following options: \n\r";
     	menuString += "===========================================\n\r\n\r";
     	menuString += "(1) create customer\n\r"; // create new customer or select from existing mock up
