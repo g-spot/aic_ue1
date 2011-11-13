@@ -1,7 +1,9 @@
 package at.ac.tuwien.infosys.aic11;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -15,6 +17,7 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 import at.ac.tuwien.infosys.aic11.data.CreditRequest;
 import at.ac.tuwien.infosys.aic11.data.Customer;
+import at.ac.tuwien.infosys.aic11.legacy.mock.CustomerMock;
 import at.ac.tuwien.infosys.aic11.services.CustomerRelationsManagementService;
 
 public class ClerkCommandLineInterface {
@@ -24,6 +27,7 @@ public class ClerkCommandLineInterface {
 	private JaxWsProxyFactoryBean factory;
 	private CustomerRelationsManagementService cr;
 	private Customer c;
+	private CustomerMock cm;
 
 	
 	public ClerkCommandLineInterface(){
@@ -40,15 +44,22 @@ public class ClerkCommandLineInterface {
 		factory.setAddress(address);
 		
 	    this.cr = (CustomerRelationsManagementService)factory.create();
+	    this.cm = CustomerMock.getInstance();
 		
-		this.c = new Customer();
-		c.setCustomerid(110);
-		c.setFirstname("Gerhard");
-		c.setLastname("Bankrupt");
-		cr.addCustomer(c);
 	}
 	
-    public String generateInputMenu()
+	public void runCommandLineInterface()
+	{
+		String lastCommand = "";
+		
+		while(!lastCommand.equals("Q"))
+		{
+			lastCommand = menuCall(generateInputMenu());
+		}
+		
+	}
+	
+    private String generateInputMenu()
     {
     	String menuString = new String();
     	
@@ -67,6 +78,30 @@ public class ClerkCommandLineInterface {
     	
     	return menuString;
     }
+    private String menuCall(String menuString)
+    {
+    	System.out.print(menuString);
+    	return inputLineFromCli("Selection: ");
+    }
+    private void generateCreateCustomerInteraction()
+    {
+    	// print customers to select or select to create new
+    	
+    		// get customer from mock?
+    		
+    	
+    		// create new customer
+			this.c = new Customer();
+			
+			// input new customer
+			c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
+			c.setFirstname(inputLineFromCli("First name: "));
+			c.setLastname(inputLineFromCli("Last name: "));
+			cr.addCustomer(c);
+		
+		
+    	
+    }
     
     private CreditRequest generateCreditRequest()
     {
@@ -76,7 +111,20 @@ public class ClerkCommandLineInterface {
     	
     	return creditRequest;
     }
-    
+    private String inputLineFromCli(String text)
+    {
+		System.out.println(text);
+		InputStreamReader converter = new InputStreamReader(System.in);
+		BufferedReader in = new BufferedReader(converter);
+		String input = "";
+		try {
+			input = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return input;
+    }
     private String getStringFromInputStream(InputStream in) throws Exception {
         CachedOutputStream bos = new CachedOutputStream();
         IOUtils.copy(in, bos);
