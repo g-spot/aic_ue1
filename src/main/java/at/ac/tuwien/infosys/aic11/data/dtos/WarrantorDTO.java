@@ -4,6 +4,10 @@ public class WarrantorDTO {
 
 	private long warrantorid = 0l;
 
+	public WarrantorDTO( ) {
+
+	}
+	
 	public WarrantorDTO( long id ) {
 		this.warrantorid = id;
 	}
