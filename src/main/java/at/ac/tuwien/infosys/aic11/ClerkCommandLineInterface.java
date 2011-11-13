@@ -178,13 +178,27 @@ public class ClerkCommandLineInterface {
     			break;
     		case 5:
     				// accept offer 
-    				this.sservice.acceptOffer(CreditRequestMarshaller.marshall(creditrequest));
-    				returnString = "Accapted offer - shipping contract and sending disbursement.\n\r";
+					if(this.creditrequest != null && this.creditrequest.getOffer() != null)
+					{
+						this.sservice.acceptOffer(CreditRequestMarshaller.marshall(creditrequest));
+						returnString = "Accapted offer - shipping contract and sending disbursement.\n\r";
+					}
+					else
+					{
+						returnString = "Please create credit request and offer first.\n\r";
+					}
     			break;
     		case 6:
-    				// call remove
-    				this.cm.declineOffer(CreditRequestMarshaller.marshall(this.creditrequest));
-    				returnString = "Declined offer - deleted offer from the system. \n\r";
+					if(this.creditrequest != null && this.creditrequest.getOffer() != null)
+					{
+						// call remove
+						this.cm.declineOffer(CreditRequestMarshaller.marshall(this.creditrequest));
+						returnString = "Declined offer - deleted offer from the system. \n\r";
+					}
+					else
+					{
+						returnString = "Please create credit request and offer first.\n\r";
+					}
     			break;
     		default:
     			returnString = "Unknown selection!\n\r";
@@ -322,12 +336,4 @@ public class ClerkCommandLineInterface {
 		}
         return CustomerRating.Defaulting;
     }
-/*    Wie was wann wo
- * private String getWarrantorRating()
-    {
-    	String rating = "";
-    	String ratingRequest = "http://localhost:9001/ratingservice/rating/";
-    	
-    	return rating; 
-    }*/
 }
