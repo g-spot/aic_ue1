@@ -138,6 +138,7 @@ public class ClerkCommandLineInterface {
     				{
     					// CREATE REQUEST 
     					this.creditrequest = generateCreditRequest();
+    					this.creditrequest.setCustomer(this.c);
         				returnString = "Credit request created.\n\r";
     				}
     				else
