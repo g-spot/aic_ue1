@@ -1,1 +1,9 @@
-wer das liest ist blšd
+group members:
+gerhard schraml
+johannes kurz,
+roman schÃ¶nbichler
+
+HOWTO RUN:
+import project into eclipse
+enable maven dependency management and update maven dependencies
+right click at.ac.tuwien.infosoys.aic11.Server -> run as -> java application
