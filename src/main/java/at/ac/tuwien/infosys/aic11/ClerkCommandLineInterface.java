@@ -318,7 +318,7 @@ public class ClerkCommandLineInterface {
         return bos.getOut().toString();
     }
     
-    private String getCustomerRating(Customer customer)
+    private CustomerRating getCustomerRating(Customer customer)
     {
     	String ratingRequest = "http://localhost:9001/ratingservice/rating/";
     	
@@ -336,12 +336,12 @@ public class ClerkCommandLineInterface {
 			e.printStackTrace();
 		}
         try {
-			return getStringFromInputStream(in);
+			return CustomerRating.valueOf(getStringFromInputStream(in));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return "110";
+        return CustomerRating.Defaulting;
     }
 /*    Wie was wann wo
  * private String getWarrantorRating()
