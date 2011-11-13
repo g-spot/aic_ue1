@@ -40,11 +40,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link QueryResponse }
+     * Create an instance of {@link Cheque }
      * 
      */
-    public QueryResponse createQueryResponse() {
-        return new QueryResponse();
+    public Cheque createCheque() {
+        return new Cheque();
+    }
+
+    /**
+     * Create an instance of {@link InvalidParameter }
+     * 
+     */
+    public InvalidParameter createInvalidParameter() {
+        return new InvalidParameter();
     }
 
     /**
@@ -64,27 +72,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Cheque }
-     * 
-     */
-    public Cheque createCheque() {
-        return new Cheque();
-    }
-
-    /**
-     * Create an instance of {@link InvalidParameter }
-     * 
-     */
-    public InvalidParameter createInvalidParameter() {
-        return new InvalidParameter();
-    }
-
-    /**
      * Create an instance of {@link BankTransfer }
      * 
      */
     public BankTransfer createBankTransfer() {
         return new BankTransfer();
+    }
+
+    /**
+     * Create an instance of {@link QueryResponse }
+     * 
+     */
+    public QueryResponse createQueryResponse() {
+        return new QueryResponse();
     }
 
     /**
