@@ -38,7 +38,7 @@ import at.ac.tuwien.infosys.aic11.services.security.SecurityOutInterceptor;
 public class ClerkCommandLineInterface {
 	private CustomerRelationsManagementService cr;
 	private Customer c;
-	private CustomerMock cmock;
+//	private CustomerMock cmock;
 	private CreditRequest creditrequest;
 	private ContractManagementService cm;
 	private ShippingService sservice;
@@ -46,7 +46,7 @@ public class ClerkCommandLineInterface {
 	public ClerkCommandLineInterface(){
 		
 		this.c = null;
-	    this.cmock = CustomerMock.getInstance();		
+//	    this.cmock = CustomerMock.getInstance();		
 		this.creditrequest = null;
 		
 	    //QName service_name = new QName("http://services.aic11.infosys.tuwien.ac.at/", "CustomerRelationsManagementService");
@@ -132,6 +132,7 @@ public class ClerkCommandLineInterface {
     	{
     		case 1:
     				generateCreateCustomerInteraction();
+					cr.addCustomer(this.c);
     				returnString = "Customer selected.\n\r";
     			break;
     		
@@ -141,6 +142,8 @@ public class ClerkCommandLineInterface {
     					// CREATE REQUEST 
     					this.creditrequest = generateCreditRequest();
     					this.creditrequest.setCustomer(this.c);
+    					this.c.addCreditrequest(this.creditrequest);
+    					
         				returnString = "Credit request created.\n\r";
     				}
     				else
@@ -192,54 +195,30 @@ public class ClerkCommandLineInterface {
     private void generateCreateCustomerInteraction()
     {
     	// select customer or select to create new
-    	String menuString = "";
-    	String selection = "";
-    	String selectedId = "";
-    	
-    	menuString += "Please choose: \n\r";
-    	menuString += "==============\n\r\n\r";
-    	menuString += "(1) create customer\n\r";
-    	menuString += "(2) select existing\n\r";
-    	
-    	while(!selection.equals("1") && !selection.equals("2"))
-    	{
-	    	selection = menuCall(menuString);
-	    	if(selection.equals("1"))
-	    	{
-	       		// create new customer
-	    			this.c = new Customer();
-	    			
-	    			// input new customer
-	    			this.c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
-	    			this.c.setFirstname(inputLineFromCli("First name: "));
-	    			this.c.setLastname(inputLineFromCli("Last name: "));
-	    			
-	    			at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
-	    			adr.setId(Long.parseLong(inputLineFromCli("AdressId: ")));
-	    			adr.setStreet(inputLineFromCli("Street: "));
-	    			adr.setCity(inputLineFromCli("City: "));
-	    			adr.setDoor(inputLineFromCli("Door: "));
-	    			adr.setHouse(inputLineFromCli("House: "));
-	    			adr.setZipcode(inputLineFromCli("Zipcode: "));
-	    			
-					this.c.setAddress(adr);
-					this.c.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
-					
-					this.c.setRating(getCustomerRating(this.c));
-					
-					cr.addCustomer(c);
-	    	}
-	    	else if(selection.equals("2"))
-	    	{
-	    		// get customer from mock?
-	    		selectedId = inputLineFromCli("CostumerId: ");
-	    		this.c = cmock.getCustomer(Long.parseLong(selectedId));
-	    	}
-	    	else
-	    	{
-	    		menuString += "Wrong input please use the Number inside the round brackets!\n\r";
-	    	}
-    	}	
+		// create new customer
+		this.c = new Customer();
+		
+		// input new customer
+		this.c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
+		this.c.setFirstname(inputLineFromCli("First name: "));
+		this.c.setLastname(inputLineFromCli("Last name: "));
+		
+		at.ac.tuwien.infosys.aic11.data.Address adr = new at.ac.tuwien.infosys.aic11.data.Address();
+		adr.setId(Long.parseLong(inputLineFromCli("AdressId: ")));
+		adr.setStreet(inputLineFromCli("Street: "));
+		adr.setCity(inputLineFromCli("City: "));
+		adr.setDoor(inputLineFromCli("Door: "));
+		adr.setHouse(inputLineFromCli("House: "));
+		adr.setZipcode(inputLineFromCli("Zipcode: "));
+		
+		this.c.setAddress(adr);
+		this.c.setOpenbalance(BigDecimal.valueOf(Long.parseLong(inputLineFromCli("Openbalance: "))));
+		
+		Rating rating = new Rating();
+		rating.setCustomer(this.c);
+		rating.setCustomerrating(getCustomerRating(this.c));
+		this.c.setRating(rating);
+
     }
     
     private CreditRequest generateCreditRequest()
