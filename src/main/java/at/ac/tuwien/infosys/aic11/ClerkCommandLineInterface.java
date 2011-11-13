@@ -51,10 +51,17 @@ public class ClerkCommandLineInterface {
 	public void runCommandLineInterface()
 	{
 		String lastCommand = "";
+		String functionCallResult = "";
 		
 		while(!lastCommand.equals("Q"))
 		{
 			lastCommand = menuCall(generateInputMenu());
+			
+			functionCallResult = callFunction(Integer.parseInt(lastCommand));
+			
+			System.out.println(functionCallResult);
+			
+			System.out.flush();
 		}
 		
 	}
@@ -68,13 +75,12 @@ public class ClerkCommandLineInterface {
     	
     	menuString += "Please select one of the following options: \n\r";
     	menuString += "===========================================\n\r\n\r";
-    	menuString += "(1) create customer"; // create new customer or select from existing mock up
-    	menuString += "(2) create credit request"; // create request and fill with data
-    	menuString += "(2) update request"; // change data here
-    	menuString += "";
-    	menuString += "(4) accept"; // disbursement + shipping in thread each
-    	menuString += "(5) decline"; // remove only
-    	menuString += "(Q) Exit";
+    	menuString += "(1) create customer\n\r"; // create new customer or select from existing mock up
+    	menuString += "(2) create credit request\n\r"; // create request and fill with data
+    	menuString += "(3) update request\n\r"; // change data here
+    	menuString += "(4) accept\n\r"; // disbursement + shipping in thread each
+    	menuString += "(5) decline\n\r"; // remove only
+    	menuString += "(Q) Exit\n\r";
     	
     	return menuString;
     }
@@ -83,24 +89,78 @@ public class ClerkCommandLineInterface {
     	System.out.print(menuString);
     	return inputLineFromCli("Selection: ");
     }
+    
+    private String callFunction(int functionId)
+    {
+    	String returnString = "";
+    	
+    	switch(functionId)
+    	{
+    		case 1:
+    				generateCreateCustomerInteraction();
+    				returnString = "Customer selected.\n\r";
+    			break;
+    		
+    		case 2:
+    				// TODO CREATE REQUEST but check if customer is set!
+    				returnString = "Credit request created.\n\r";
+    			break;
+    		case 3:
+    				// TODO update REQUEST but check if customer is set!
+    				returnString = "Credit request updated.\n\r";
+    			break;
+    			
+    		case 4:
+    				// TODO accept request 
+    				returnString = "Accapted offer - shipping contract and sending disbursement.\n\r";
+    			break;
+    		case 5:
+    				// TODO call remove
+    				returnString = "Declined offer - deleted offer from the system. \n\r";
+    			break;
+    		default:
+    			returnString = "Unknown selection!\n\r";
+    	}
+    	return returnString;
+    }
+    
     private void generateCreateCustomerInteraction()
     {
     	// print customers to select or select to create new
+    	String menuString = "";
+    	String selection = "";
+    	String selectedId = "";
     	
-    		// get customer from mock?
-    		
+    	menuString += "Please choose: \n\r";
+    	menuString += "==============\n\r\n\r";
+    	menuString += "(1) create customer\n\r";
+    	menuString += "(2) select existing\n\r";
     	
-    		// create new customer
-			this.c = new Customer();
-			
-			// input new customer
-			c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
-			c.setFirstname(inputLineFromCli("First name: "));
-			c.setLastname(inputLineFromCli("Last name: "));
-			cr.addCustomer(c);
-		
-		
-    	
+    	while(!selection.equals("1") && !selection.equals("2"))
+    	{
+	    	selection = menuCall(menuString);
+	    	if(selection.equals("1"))
+	    	{
+	       		// create new customer
+	    			this.c = new Customer();
+	    			
+	    			// input new customer
+	    			c.setCustomerid(Long.parseLong(inputLineFromCli("CustomerID: ")));
+	    			c.setFirstname(inputLineFromCli("First name: "));
+	    			c.setLastname(inputLineFromCli("Last name: "));
+	    			cr.addCustomer(c);
+	    	}
+	    	else if(selection.equals("2"))
+	    	{
+	    		// get customer from mock?
+	    		selectedId = inputLineFromCli("CostumerId: ");
+	    		c = cm.getCustomer(Long.parseLong(selectedId));
+	    	}
+	    	else
+	    	{
+	    		menuString += "Wrong input please use the Number inside the round brackets!\n\r";
+	    	}
+    	}	
     }
     
     private CreditRequest generateCreditRequest()
