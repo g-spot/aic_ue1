@@ -53,15 +53,16 @@ public class ClerkCommandLineInterface {
     	String menuString = new String();
     	
     	// TODO check already done points to avoid missing dependencies on following
+    	// TODO call only inputs in menu that are needed to complete (create customer -> create offer -> update offer -> accept / declain)
     	
     	menuString += "Please select one of the following options: \n\r";
     	menuString += "===========================================\n\r\n\r";
-    	menuString += "(1) Create credit request";
-    	menuString += "(2) get ratings of customer and warrantors";
-    	menuString += "(2) generate offer";
-    	menuString += "(3) update request";
-    	menuString += "(4) accept";
-    	menuString += "(5) decline";
+    	menuString += "(1) create customer"; // create new customer or select from existing mock up
+    	menuString += "(2) create credit request"; // create request and fill with data
+    	menuString += "(2) update request"; // change data here
+    	menuString += "";
+    	menuString += "(4) accept"; // disbursement + shipping in thread each
+    	menuString += "(5) decline"; // remove only
     	menuString += "(Q) Exit";
     	
     	return menuString;
